@@ -107,6 +107,7 @@ async function history(){
      for (let index = 0,day = 1; index < data.forecast.forecastday.length; index++,day++){
          
        document.getElementById(`hist_day${day}`).innerHTML = data.forecast.forecastday[index].date;
+       document.getElementById(`hist_day${day}_icon`).src = data.forecast.forecastday[index].day.condition.icon;
        document.getElementById(`hist_day${day}Temp`).innerHTML =data.forecast.forecastday[index].day.avgtemp_c;
        document.getElementById(`hist_day${day}Wind`).innerHTML =data.forecast.forecastday[index].day.maxwind_kph;
        document.getElementById(`hist_day${day}Hum`).innerHTML =data.forecast.forecastday[index].day.avghumidity;
