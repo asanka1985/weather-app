@@ -5,6 +5,8 @@ const currentWeatherDiv = document.querySelector(".current-weather");
 const weatherCardsDiv = document.querySelector(".weather-cards");
 
 const API_KEY = "94e8fd5c7320e6322e78e9428f479cd7"; // API key for OpenWeatherMap API
+const apiKey = "a9178400a3fd4509bb2155948231909";
+const apiUrl = "http://api.weatherapi.com/v1";
 
 const createWeatherCard = (cityName, weatherItem, index) => {
     if(index === 0) { // HTML for the main weather card
@@ -97,6 +99,23 @@ const getUserCoordinates = () => {
             }
         });
 }
+async function history(){
+    const response = await fetch(apiUrl + `/history.json?key=${apiKey}&q=panadura&dt=2023-09-28&end_dt=2023-10-02`);
+
+    const data = await response.json();
+    console.log(data);
+     for (let index = 0,day = 1; index < data.forecast.forecastday.length; index++,day++){
+         
+       document.getElementById(`hist_day${day}`).innerHTML = data.forecast.forecastday[index].date;
+       document.getElementById(`hist_day${day}Temp`).innerHTML =data.forecast.forecastday[index].day.avgtemp_c;
+       document.getElementById(`hist_day${day}Wind`).innerHTML =data.forecast.forecastday[index].day.maxwind_kph;
+       document.getElementById(`hist_day${day}Hum`).innerHTML =data.forecast.forecastday[index].day.avghumidity;
+     }
+
+    
+}
+
+history();
 
 locationButton.addEventListener("click", getUserCoordinates);
 searchButton.addEventListener("click", getCityCoordinates);
